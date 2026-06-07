@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Neutrals */
+  --c-black: #0f0f0e;
+  --c-gray-1: #444441;
+  --c-gray-2: #888;
+  --c-gray-3: #aaa;
+  --c-gray-4: #bbb;
+  --c-surface: #f7f6f1;
+  --c-surface-2: #f0efe9;
+  --c-white: #ffffff;
+  --c-border: #ece9e3;
+  --c-border-2: #f5f4ef;
+  --c-hover: #f5f4ef;
+
+  /* Score / semantic */
+  --c-green-bg: #dcfce7;
+  --c-green-text: #15803d;
+  --c-amber-bg: #fef3c7;
+  --c-amber-text: #92400e;
+  --c-red-bg: #fee2e2;
+  --c-red-text: #991b1b;
+  --c-green-bar: #22c55e;
+  --c-amber-bar: #f59e0b;
+  --c-red-bar: #ef4444;
+  --c-green-skill: #f0fdf4;
+  --c-green-skill-text: #15803d;
+  --c-green-skill-border: #bbf7d0;
+  --c-red-skill: #fef2f2;
+  --c-red-skill-text: #dc2626;
+  --c-red-skill-border: #fecaca;
+
+  /* Accent */
+  --c-purple: #5b4fcf;
+  --c-purple-bg: #eeecfd;
+  --c-purple-dark: #3730a3;
+
+  /* Dark sidebar */
+  --c-sidebar-bg: #0f0f0e;
+  --c-sidebar-item: #1e1e1c;
+  --c-sidebar-text: #aaa;
+  --c-sidebar-white: #fff;
+  --c-sidebar-muted: #555;
+  --c-sidebar-badge: #3f3f3c;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 200ms ease-in;
+}
