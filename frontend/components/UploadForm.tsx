@@ -7,6 +7,7 @@ import { IconCloudUpload, IconFileCheck, IconLoader2 } from '@tabler/icons-react
 
 export default function UploadForm() {
   const router = useRouter();
+  const API_URL = (process.env.NEXT_PUBLIC_API_URL as string) || 'http://localhost:4000';
   const [file, setFile] = useState<File | null>(null);
   const [jdText, setJdText] = useState('');
   const [loading, setLoading] = useState(false);
@@ -44,7 +45,7 @@ export default function UploadForm() {
       formData.append('resume', file);
       formData.append('jd_text', jdText);
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/analyze`, {
+      const response = await fetch(`${API_URL}/api/analyze`, {
         method: 'POST',
         body: formData,
         credentials: 'include',
@@ -59,10 +60,10 @@ export default function UploadForm() {
           if (contentType.includes('application/json')) {
             const errData = await response.json();
             message = errData.error || JSON.stringify(errData) || message;
-          } else {
+            } else {
             const text = await response.text();
             // Avoid throwing full HTML; give a short message
-            message = text ? text.slice(0, 100) : message;
+            message = text ? text.slice(0, 200) : message;
           }
         } catch (e) {
           // ignore parse errors and fall back to status

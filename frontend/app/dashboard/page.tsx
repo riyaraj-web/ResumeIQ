@@ -35,11 +35,12 @@ export default function DashboardPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
         const [statsRes, analysesRes] = await Promise.all([
-          fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user/stats`, {
+          fetch(`${API_URL}/api/user/stats`, {
             credentials: 'include',
           }),
-          fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/analyses`, {
+          fetch(`${API_URL}/api/analyses`, {
             credentials: 'include',
           }),
         ]);
