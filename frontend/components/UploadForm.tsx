@@ -50,12 +50,38 @@ export default function UploadForm() {
         credentials: 'include',
       });
 
+      const contentType = response.headers.get('content-type') || '';
+
       if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || 'Analysis failed');
+        // Try to extract a useful error message whether JSON or plain text/HTML
+        let message = `Request failed with status ${response.status}`;
+        try {
+          if (contentType.includes('application/json')) {
+            const errData = await response.json();
+            message = errData.error || JSON.stringify(errData) || message;
+          } else {
+            const text = await response.text();
+            // Avoid throwing full HTML; give a short message
+            message = text ? text.slice(0, 100) : message;
+          }
+        } catch (e) {
+          // ignore parse errors and fall back to status
+        }
+        throw new Error(message || 'Analysis failed');
       }
 
-      const data = await response.json();
+      // Parse success body as JSON, guard against HTML or invalid JSON
+      let data: any;
+      try {
+        if (contentType.includes('application/json')) {
+          data = await response.json();
+        } else {
+          const text = await response.text();
+          data = JSON.parse(text);
+        }
+      } catch (e) {
+        throw new Error('Invalid JSON response from server');
+      }
       
       // Store results in localStorage for display
       localStorage.setItem('latestAnalysis', JSON.stringify(data));
