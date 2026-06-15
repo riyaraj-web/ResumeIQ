@@ -43,6 +43,11 @@ export default function ResultsPage() {
 
   useEffect(() => {
     const fetchAnalysis = async () => {
+      if (!params || !params.id) {
+        console.warn('No id param provided');
+        setLoading(false);
+        return;
+      }
       try {
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}/api/analyze/${params.id}`,
@@ -61,7 +66,7 @@ export default function ResultsPage() {
     };
 
     fetchAnalysis();
-  }, [params.id]);
+  }, [params?.id]);
 
   if (loading) {
     return (

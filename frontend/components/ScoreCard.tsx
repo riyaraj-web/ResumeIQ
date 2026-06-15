@@ -4,18 +4,32 @@ import { useEffect, useState } from 'react';
 
 interface ScoreCardProps {
   score: number;
+  title?: string;
+  color?: string;
 }
 
-export default function ScoreCard({ score }: ScoreCardProps) {
+export default function ScoreCard({ score, title, color: colorProp }: ScoreCardProps) {
   const [animatedOffset, setAnimatedOffset] = useState(251.2);
   
   const circumference = 251.2; // 2 * π * 40
   const targetOffset = circumference * (1 - score / 100);
   
-  const color = score >= 75 ? 'var(--c-green-bar)' : score >= 55 ? 'var(--c-amber-bar)' : 'var(--c-red-bar)';
-  const bgColor = score >= 75 ? 'var(--c-green-bg)' : score >= 55 ? 'var(--c-amber-bg)' : 'var(--c-red-bg)';
-  const textColor = score >= 75 ? 'var(--c-green-text)' : score >= 55 ? 'var(--c-amber-text)' : 'var(--c-red-text)';
+  const defaultColor = score >= 75 ? 'var(--c-green-bar)' : score >= 55 ? 'var(--c-amber-bar)' : 'var(--c-red-bar)';
+  const defaultBg = score >= 75 ? 'var(--c-green-bg)' : score >= 55 ? 'var(--c-amber-bg)' : 'var(--c-red-bg)';
+  const defaultText = score >= 75 ? 'var(--c-green-text)' : score >= 55 ? 'var(--c-amber-text)' : 'var(--c-red-text)';
   const label = score >= 75 ? 'Strong match' : score >= 55 ? 'Moderate match' : 'Weak match';
+
+  const colorMap: Record<string, { bar: string; bg: string; text: string }> = {
+    purple: { bar: 'var(--c-purple)', bg: 'var(--c-purple-bg)', text: 'var(--c-purple)' },
+    green: { bar: 'var(--c-green-bar)', bg: 'var(--c-green-bg)', text: 'var(--c-green-text)' },
+    blue: { bar: 'var(--c-blue)', bg: 'var(--c-blue-bg)', text: 'var(--c-blue)' },
+    orange: { bar: 'var(--c-amber-bar)', bg: 'var(--c-amber-bg)', text: 'var(--c-amber-text)' },
+  };
+
+  const mapped = colorProp && colorMap[colorProp] ? colorMap[colorProp] : { bar: defaultColor, bg: defaultBg, text: defaultText };
+  const color = mapped.bar;
+  const bgColor = mapped.bg;
+  const textColor = mapped.text;
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -26,6 +40,9 @@ export default function ScoreCard({ score }: ScoreCardProps) {
 
   return (
     <div className="flex flex-col items-center py-4 border-b border-[var(--c-border-2)]">
+      {title && (
+        <div className="text-[13px] font-semibold mb-2 text-[var(--c-black)]">{title}</div>
+      )}
       <svg width="100" height="100" className="mb-3">
         {/* Track ring */}
         <circle

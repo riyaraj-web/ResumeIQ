@@ -87,14 +87,14 @@ export default function UploadForm() {
           <input {...getInputProps()} />
           {file ? (
             <div className="flex items-center justify-center gap-2">
-              <IconFileCheck size={22} className="text-[var(--c-green-text)] pointer-events-none" />
+              <IconFileCheck size={22} className="text-[var(--c-green-text)]" />
               <span className="text-[12px] font-medium text-[var(--c-green-text)]">
                 {file.name}
               </span>
             </div>
           ) : (
             <>
-              <IconCloudUpload size={22} className="text-[var(--c-gray-3)] mx-auto mb-1.5 pointer-events-none" />
+              <IconCloudUpload size={22} className="text-[var(--c-gray-3)] mx-auto mb-1.5" />
               <div className="text-[12px] font-medium text-[#333]">
                 Drop your resume here or click to browse
               </div>

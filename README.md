@@ -38,10 +38,13 @@ An intelligent resume analysis tool that helps job seekers optimize their resume
 ### AI & Database
 - **Groq** - Free AI API (14,400 requests/day)
 - **Supabase** - PostgreSQL database
+
+<<<<<<< HEAD
+=======
 ## 📦 Installation
 
 ### Prerequisites
-- Node.js 18+
+- Node.js 18+ 
 - npm or yarn
 - Groq API key (free from https://console.groq.com/)
 
@@ -94,6 +97,7 @@ npm run dev
 cd frontend
 npm run dev
 ```
+>>>>>>> 6690ccb (docs: update README)
 
 ## 📖 How It Works
 
