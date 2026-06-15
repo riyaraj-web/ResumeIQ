@@ -5,6 +5,7 @@ WORKDIR /app
 COPY package.json package-lock.json* ./
 RUN npm ci
 COPY . ./
+RUN mkdir -p public
 RUN npm run build
 
 FROM node:18-alpine
@@ -17,6 +18,8 @@ RUN npm ci --production
 
 # Copy built assets
 COPY --from=builder /app/.next ./.next
+# Some projects may not have a `public` folder. Create it if missing to avoid build failures.
+RUN mkdir -p /app/public
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/next.config.js ./next.config.js
 
